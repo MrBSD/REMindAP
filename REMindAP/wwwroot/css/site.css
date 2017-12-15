@@ -1,0 +1,159 @@
+﻿body {
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+/*Bootstrap overrides*/
+
+.btn-primary {
+    background-color: #152b87;
+    border-color: #152b87;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: 2px solid red;
+}
+
+.navbar-inverse {
+    background-color: #152b87;
+    border-color: #152b87;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+.navbar-inverse .btn-link {
+    color: #fcf9f9;
+}
+
+.navbar-inverse .notifications {
+        position: relative;
+}
+
+    .navbar-inverse .notifications .badge{
+        position: absolute;
+        top: 7px;
+        right:-1px;
+        background-color: red
+    }
+
+/*page-level styles*/
+.reminders{
+    list-style:none;
+}
+
+.reminders > li {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+    .reminders > li .date {
+        background: #152b87;
+        color: white;
+        text-align: center;
+        width: 60px;
+        border-radius: 8px;
+    }
+    .reminders > li .date .month {
+        font-size:14px;
+        text-transform:uppercase;
+        font-weight: bold;
+        padding: 2px 6px;
+        
+
+    }
+
+    .reminders > li .date .day {
+        background:#f2f2f2;
+        color: #333;
+        font-size:20px;
+        padding: 2px 6px;
+    }
+
+
+.reminders > li .details{
+    position: absolute;
+    top: 0;
+    left: 70px;
+}
+    .reminders > li .details .title {
+        font-weight: bold;
+        font-size: 17px;
+        display: block;
+    }
+
+    .reminders > li .details .description {
+        font-size: 15px;
+    }
+
+.reminders > li .actions {
+    font-size: 14px;
+    display: none;
+}
+
+.reminders > li:hover .actions {
+    display:block;
+}
+
+.btn-new-reminder {
+    margin-bottom: 30px;
+    margin-left: 40px;
+}
+
+ul .notifications {
+    list-style: none;
+    padding-left: 0;
+
+}
+
+ul .notifications >li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+    ul .notifications > li:last-child {
+        border-bottom:none;
+    }
+
+    ul .notifications .highlight {
+        font-weight: bold;
+    }

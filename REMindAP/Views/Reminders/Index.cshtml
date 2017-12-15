@@ -1,0 +1,81 @@
+﻿@using REMindAP.Core.Domain
+@model IEnumerable<Reminder>
+
+@{
+    ViewBag.Title = "Reminders";
+    Layout = "_Layout";
+}
+
+
+@Html.ActionLink("New Reminder", "Create", "Reminders",null, new {@class="btn btn-primary btn-new-reminder"})
+<p></p>
+<ul class="reminders">
+    @foreach (var reminder in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @reminder.EventDate.ToString("MMM")
+                </div>
+                <div class="day">
+                    @reminder.EventDate.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="title">
+                   @reminder.EventDate.ToString("HH:mm") | @reminder.Title
+                </span>
+                <span class="description">
+                    @reminder.ShortDescription
+                </span>
+                <div class="actions">
+                    <a href="@Url.Action("Edit", "Reminders", new { id=reminder.Id})">Edit</a> |
+                    <a href="#" class="js-cancel-remider" data-reminder-id="@reminder.Id">Cancel</a>
+                </div>
+            </div>
+
+        </li>
+    }
+</ul>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".js-cancel-remider").click(function (e) {
+                var link = $(e.target);
+                bootbox.dialog({
+                    title: 'Confirm',
+                    message: "<p>Are you sure you want to cansel this event?</p>",
+                    buttons: {
+                        cancel: {
+                            label: "No",
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        ok: {
+                            label: "Yes",
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/reminders/" + link.attr("data-reminder-id"),
+                                    method: "POST"
+                                })
+                                    .done(function () {
+                                        link.parents("li").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function () {
+                                        alert("FAIL!!!")
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+</script>
+}

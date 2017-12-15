@@ -1,0 +1,37 @@
+﻿@using REMindAP.Core.Domain
+@model IEnumerable<Notification>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<table class="table table-bordered table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Email</th>
+            <th>IsRead</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var notification in Model)
+            {
+                <tr>
+                    <td>@notification.Id</td>
+                    <td>@notification.Reminder.Title</td>
+                    <td>@notification.NotificationDateTime.ToString()</td>
+                    <td>@notification.Reminder.User.Email</td>
+                    <td>@notification.IsRead</td>
+                </tr>
+            }
+
+
+        }
+        
+    </tbody>
+</table>
+  
+

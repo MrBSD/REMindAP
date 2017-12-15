@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Server</h2>
+<a href="/hangfire" class="btn btn-primary">Hangfire dashboard</a>
+<a id="start" class="btn btn-primary">Start scheduler</a>
+<a id="notify" class="btn btn-danger">Notify</a>
+
+@section scripts
+{
+    <script>
+        $(function () { 
+            $("#start").click(function () {
+                $.ajax({
+                    url: "/api/Scheduler/start",
+                    method: "GET"
+                })
+                    .done(function () {
+                        alert("Scheduler started");
+                       
+                    })
+                    .fail(function () {
+                        alert("FAIL!!!")
+                    });
+            });
+            $("#notify").click(function () {
+                $.ajax({
+                    url: "/api/Scheduler/notify",
+                    method: "GET"
+                })
+                    .done(function () {
+                        alert("Notifications sent");
+
+                    })
+                    .fail(function () {
+                        alert("FAIL!!!")
+                    });
+            });
+        })
+    </script>
+
+}

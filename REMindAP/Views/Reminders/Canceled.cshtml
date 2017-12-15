@@ -1,0 +1,79 @@
+﻿@using REMindAP.Core.Domain
+@model IEnumerable<Reminder>
+@{
+    ViewData["Title"] = "Canceled reminders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Canceled reminders</h2>
+<ul class="reminders">
+    @foreach (var reminder in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @reminder.EventDate.ToString("MMM")
+                </div>
+                <div class="day">
+                    @reminder.EventDate.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="title">
+                    @reminder.Title
+                </span>
+                <span class="description">
+                    @reminder.ShortDescription
+                </span>
+                <div class="actions">
+                    <a href="#">Restore</a> |
+                    <a href="#" class="js-delete-remider" data-reminder-id="@reminder.Id">Delete</a>
+                </div>
+            </div>
+
+        </li>
+    }
+</ul>
+
+@section scripts
+{
+<script>
+        $(function () {
+            $(".js-delete-remider").click(function (e) {
+                var link = $(e.target);
+                bootbox.dialog({
+                    title: 'Confirm',
+                    message: "<p>Are you sure you want to delete this event?</p>",
+                    buttons: {
+                        cancel: {
+                            label: "No",
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        ok: {
+                            label: "Yes",
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/reminders/" + link.attr("data-reminder-id"),
+                                    method: "DELETE"
+                                })
+                                    .done(function () {
+                                        link.parents("li").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function () {
+                                        alert("FAIL!!!")
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+</script>
+}
+

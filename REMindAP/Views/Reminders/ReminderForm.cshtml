@@ -1,0 +1,52 @@
+﻿@model REMindAP.Core.ViewModels.ReminderViewModel
+
+@{
+    string header = (Model.Id == 0) ? "New reminder" : "Edit reminder";
+    
+    ViewBag.Title = header;
+    Layout = "_Layout";
+}
+
+<h2>@header</h2>
+<form asp-controller="Reminders" asp-action="Save" method="post" asp-antiforgery="true">
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDescription"></label>
+        <input asp-for="ShortDescription" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Date"></label>
+        <input asp-for="Date" class="form-control" />
+        <span asp-validation-for="Date"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Time"></label>
+        <input asp-for="Time" class="form-control" />
+        <span asp-validation-for="Time"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ReminderTypeId"></label>
+        <select asp-for="ReminderTypeId" class="form-control" asp-items="@( new SelectList(Model.ReminderTypes, "Id", "Type"))">
+            
+        </select>
+    </div>
+  
+
+    @if (Model.Notifications.Count > 0)
+    {
+        <ul>
+            @foreach (var notification in Model.Notifications)
+            {
+                <li>@notification.NotificationDateTime</li>
+            }
+        </ul>
+    }
+    <input asp-for="Id" type="hidden" />
+    
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
