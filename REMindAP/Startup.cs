@@ -51,7 +51,6 @@ namespace REMindAP
             services.AddScoped<IReminderTypesRepository, ReminderTypesRepository>();
             services.AddScoped<IScheduler, Scheduler>();
             services.AddMvc();
-            services.AddSignalR();
             services.AddAutoMapper();
         }
 
@@ -76,10 +75,7 @@ namespace REMindAP
             app.UseHangfireServer();
             app.UseHangfireDashboard();
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<BrowserNotificationService>("/notifications");
-            });
+            
 
             app.UseMvc(routes =>
             {
